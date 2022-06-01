@@ -1,0 +1,226 @@
+:root {
+  --fg: #ED2C37;
+  --bg: #fff;
+  --main-bg-color: brown;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: #333;
+  padding-top:40px
+}
+
+a {
+  color: var(--fg);
+}
+
+a:hover {
+  color: var(--fg);
+  text-decoration: underline !important;
+}
+
+.logo-bar {
+  position: fixed;
+  height: 20px;
+  width:100%;
+  background-color: var(--fg);
+  background-size:contain;
+}
+
+.logo-bar-top {
+  top: 0;
+  background-image: url(./logo-cropped.jpg);
+  background-position: right;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-bottom: 10px solid white;
+  box-sizing: content-box;
+}
+
+.logo-bar-bottom {
+  bottom: 0;
+}
+
+.navbar-brand {
+  display: none;
+}
+
+.navbar-nav {
+  display:block;
+}
+
+.navbar-nav a {
+  font-size: 2em;
+  padding:0;
+}
+
+.warranties {
+  font-size: 2em;
+  border-bottom: 1px solid #333;
+}
+
+h1 {
+  line-height:1.5;
+  margin-bottom:1em;
+}
+
+.row {
+  padding: 0 !important;
+  margin:0 !important;
+  padding-bottom: 2em !important;
+}
+
+.row.warranty {
+  border-top: 1px solid var(--fg);
+  padding-bottom: 3em !important;
+}
+
+.col {
+  padding: 0;
+}
+
+h2 {
+  padding-bottom: 1em;
+  padding-top: 2.5em !important;
+
+}
+
+h3 {
+  padding-bottom: 0.5em;
+}
+
+dd p {
+  margin-bottom: 1.3em;
+}
+
+.contract_link {
+  margin-top: -1em;
+}
+
+@media screen and (min-width: 768px) {
+
+  main {
+    margin-left: 250px;
+    padding-right:20px;
+  }
+
+  nav.navbar {
+    position: fixed;
+    left: 30px;
+    top: 45px;
+    bottom: 50px;
+    width: 170px;
+    padding: 0;
+    z-index: 100;
+    margin-top:30px;
+    display:block;
+    flex-direction: column;
+    background: var(--bg) url(./logo-square.png) no-repeat bottom;
+    background-size:contain;
+    text-align:right;
+    min-height:500px;
+    background-color:white;
+  }
+
+  .warranties {
+    margin-left: -30px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+
+  body {
+    display: flex;
+    flex-direction:column-reverse;
+    background: none;
+  }
+
+  .navbar {
+    display:block;
+  }
+
+  nav.navbar {
+    position:static;
+  }
+
+  .navbar-nav .nav-item, .navbar-nav .nav-link {
+    display: inline;
+  }
+
+  .navbar-nav .nav-link {
+    margin-right:30px;
+  }
+
+}
+
+/* Constrain images and video to width of the page */
+img, video {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+}
+
+/* Highlight for templated terms in the contract. */
+.templated {
+    font-weight: bold;
+    background: #fff2a8;
+}
+
+/* Wrapper for text */
+.vcard-text {
+    clear: both;
+}
+
+.vcard_photo {
+    float: right;
+}
+
+.vcard_name {
+    padding-left: 8em;
+}
+
+.vcard_name::before {
+    content: "Name ";
+    font-weight: normal;
+    left: 16px;
+    position: absolute;
+}
+
+.vcard_role {
+    padding-left: 8em;
+}
+
+.vcard_role::before {
+    content: "Role ";
+    font-weight: normal;
+    text-align: right;
+    left: 16px;
+    position: absolute;
+}
+
+.vcard_org {
+    padding-left: 8em;
+}
+
+.vcard_org::before {
+    content: "Organization ";
+    font-weight: normal;
+    text-align: right;
+    left: 16px;
+    position: absolute;
+}
+
+.vcard_address {
+    padding-left: 8em;
+}
+
+.vcard_address::before {
+    content: "Address ";
+    font-weight: normal;
+    text-align: right;
+    left: 16px;
+    position: absolute;
+}
