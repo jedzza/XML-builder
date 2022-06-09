@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="asset_passport">
+    <xs:complexType>
+      <xs:element name="title" type="string"/>
+      <xs:element name="image">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="image_address"/>
+            <xs:element name="alt_text"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="NFTLink">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="link_address"/>
+          <!--  <xs:element name="text"/> -->
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="warranty">
+        <xs:complexType>
+          <xs:element name="title"/>
+          <xs:element name="certifier">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="image">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="image_address"/>
+                      <xs:element name="alt_text"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="name" type="string"/>
+                <xs:element name="address" type="string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element><!--end of certifier -->
+          <xs:element name="contract">
+            <xs:complexType>
+              <xs:element name="link">
+                 <xs:complexType>
+                   <xs:sequence>
+                     <xs:element name="link_address" type="string"/>
+                     <xs:element name="text" type="string"/>
+                   </xs:sequence>
+                 </xs:complexType>
+               </xs:element><!--end of certifier Link-->
+               <xs:element name="content">
+                 <xs:complexType>
+                   <xs:element name="title" type="string"/>
+                   <xs:element name="paragraph" type="string"/>
+                   <xs:element name="email" type="string"/>
+                   <xs:element name="list">
+                     <xs:complexType>
+                       <xs:element name="paragraph" type="string"/>
+                       <xs:element name="email" type="string"/>
+                       <xs:element name="link">
+                         <xs:complexType>
+                           <xs:sequence>
+                             <xs:element name="link_address"/>
+                             <xs:element name="text"/>
+                           </xs:sequence>
+                         </xs:complexType>
+                       </xs:element>
+                       <xs:element name="image">
+                         <xs:complexType>
+                           <xs:sequence>
+                             <xs:element name="image_address"/>
+                             <xs:element name="alt_text"/>
+                           </xs:sequence>
+                         </xs:complexType>
+                       </xs:element>
+                     </xs:complexType>
+                   </xs:element><!--end of list-->
+                   <xs:element name="link">
+                     <xs:complexType>
+                       <xs:sequence>
+                         <xs:element name="link_address"/>
+                         <xs:element name="text"/>
+                       </xs:sequence>
+                     </xs:complexType>
+                   </xs:element><!--end of content link-->
+                  <xs:element name="image">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="image_address"/>
+                        <xs:element name="alt_text"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element><!--end of content image-->
+                 </xs:complexType>
+               </xs:element><!--end of content-->
+            </xs:complexType>
+          </xs:element><!--end of contract-->
+          <xs:element name="warranty_section">
+            <xs:complexType>
+              <xs:element name="section_title"/>
+               <xs:element name="content">
+                 <xs:complexType>
+                   <xs:element name="title" type="string"/>
+                   <xs:element name="paragraph" type="string"/>
+                   <xs:element name="email" type="string"/>
+                   <xs:element name="list">
+                     <xs:complexType>
+                       <xs:element name="paragraph" type="string"/>
+                       <xs:element name="email" type="string"/>
+                       <xs:element name="link">
+                         <xs:complexType>
+                           <xs:sequence>
+                             <xs:element name="link_address"/>
+                             <xs:element name="text"/>
+                           </xs:sequence>
+                         </xs:complexType>
+                       </xs:element>
+                       <xs:element name="image">
+                         <xs:complexType>
+                           <xs:sequence>
+                             <xs:element name="image_address"/>
+                             <xs:element name="alt_text"/>
+                           </xs:sequence>
+                         </xs:complexType>
+                       </xs:element>
+                     </xs:complexType>
+                   </xs:element><!--end of list-->
+                   <xs:element name="link">
+                     <xs:complexType>
+                       <xs:sequence>
+                         <xs:element name="link_address"/>
+                         <xs:element name="text"/>
+                       </xs:sequence>
+                     </xs:complexType>
+                   </xs:element><!--end of content link-->
+                  <xs:element name="image">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="image_address"/>
+                        <xs:element name="alt_text"/>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element><!--end of content image-->
+                 </xs:complexType>
+               </xs:element><!--end of content-->
+            </xs:complexType>
+            </xs:element><!--end of generic section-->
+        </xs:complexType>
+      </xs:element><!-- end of warranty-->
+    </xs:complexType>
+  </xs:element><!--end of assetpassport-->
+</xs:schema>
