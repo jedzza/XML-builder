@@ -44,6 +44,34 @@
                                               :if-exists :supersede
                                               :if-does-not-exist :create)
                                                (format stream (print string))))))))))
+(defun view-output (node)
+  (lambda (obj)
+  (let* (
+         (stylesheet (xuriella:parse-stylesheet #p"/Users/jedic/common-lisp/XML-builder-GUI/www/MAP_stylesheet.xsl"))
+         (display (xuriella:apply-stylesheet stylesheet (xmls:toxml node) :output nil))
+         (display (ppcre:regex-replace-all "\"" display "'"))
+         (display (ppcre:regex-replace-all "&" display "&amp;amp;"))
+         (output-view (create-gui-window obj
+				   :title   (xmls:node-name node)
+				   :width   800
+				   :height  800
+                   :top 100
+                   :client-movement nil))
+         (button (create-button (window-content output-view) :content "refresh"))
+         (tmp (create-div (window-content output-view) :content (format nil
+                                                                        "<iframe srcdoc=\"~a\" height='800' width='800'></iframe>" display)))
+         )
+    (set-on-click button
+                  (lambda (obj)
+                    (let* (
+                    (stylesheet (xuriella:parse-stylesheet #p"/Users/jedic/common-lisp/XML-builder-GUI/www/MAP_stylesheet.xsl"))
+                    (display (xuriella:apply-stylesheet stylesheet (xmls:toxml node) :output nil))
+                    (display (ppcre:regex-replace-all "\"" display "'"))
+                    (display (ppcre:regex-replace-all "&" display "&amp;amp;"))
+                    )
+                    (destroy tmp)
+                    (setf tmp (create-div (window-content output-view) :content
+                                          (format nil "<iframe srcdoc=\"~a\" height='800' width='800'></iframe>" display)))))))))
 
 ;takes a pathname and returns file contents as a string
 (defun read-file (infile)
