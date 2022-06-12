@@ -23,8 +23,7 @@
 ;for finding namespaces - a hack from early on in the process TODO get rid of this
 (defvar *allowed-list* '())
 
-;to handle the loaded XML and schema prior to launching the builder window - can't seem to get the functions in the menu
-;to alter a locally created version and hand this to the window functions TODO work out why and make these loacl variables
+;to handle the loaded XML and schema prior to launching the builder window
 (defvar *schema* "")
 (defvar *loaded* (xmls:make-node))
 
@@ -81,17 +80,17 @@
         (read-sequence string instream)
         string))))
 
-;load schema from a file TODO remove need for global variable here
+;load schema from a file
 (defun load-schema (obj)
   (server-file-dialog obj "choose schema" "./www/" (lambda (fname)
                                                  (setf *schema* (xmls:parse (read-file fname))))))
 
-;Load XML from a file TODO remove need for global variable here
+;Load XML from a file
 (defun load-XML (obj)
     (server-file-dialog obj "load XML" "./www/" (lambda (fname)
                                             (setf *loaded* (xmls:parse (read-file fname))))))
 
-;A popup window to view the currently loaded XML outside of the editor TODO another global variable to purge
+;A popup window to view the currently loaded XML outside of the editor
 (defun view-loaded-xml (obj)
     (let* (
          (XML (create-gui-window obj
@@ -99,7 +98,7 @@
                                  :title (format nil "~a XML" (xmls:node-name *loaded*))
                                  :content (xmls:toxml (xmls:toxml *loaded*)))))))
 
-;View the loaded schema outside the editor TODO global variable
+;View the loaded schema outside the editor
 (defun view-schema (obj)
   (let* ((about (create-gui-window obj
 				   :title   "About"
@@ -437,7 +436,7 @@
                       (setf (xmls:node-children parent-node) (remove x (xmls:node-children parent-node)))
                       (form-generate (xmls:node-name node) parent-div parent-node new-namespace x)))))))
 
-;TODO this will have the same function as above, but for loading XML without a schema - not currently called from anywhere
+;same function as above, but for loading XML without a schema
 (defun freeform-printer (node parent-div parent-node namespace)
   (if (xmls:node-p node)
       (let* (
@@ -472,6 +471,7 @@
          (view (create-gui-menu-drop-down menu :content "view"))
          (tmp (create-gui-menu-item view :content "view the schema" :on-click 'view-schema))
          (tmp (create-gui-menu-item view :content "view the XML" :on-click 'view-loaded-xml))
+         (tmp (create-gui-menu-window-select view ))
          (Run (create-gui-menu-drop-down menu :content "Run"))
          (tmp (create-gui-menu-item Run :content "structured create (schema loaded)" :on-click 'builder))
          (tmp (create-gui-menu-item Run :content "edit XML (with schema)" :on-click 'editor))
