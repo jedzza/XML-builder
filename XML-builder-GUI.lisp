@@ -1,6 +1,6 @@
 (ql:quickload :clog)
 (ql:quickload :xmls)
-(ql:quicload :cl-ppcre)
+(ql:quickload :cl-ppcre)
 (ql:quickload :xuriella)
 (defpackage #:XML-GUI
   (:use #:cl #:clog #:clog-gui #:XMLS #:ppcre)
@@ -189,6 +189,28 @@
          )
     (freeform-root-element builder-body new-root)))
 
+(defun freeform-editor (obj)
+ (let* (
+         (new-root (xmls:make-node))
+         (win (create-gui-window obj
+                                 :title "XML-Builder"
+                                 :width 800
+                                 :height 800
+                                 :top 100
+                                 :client-movement t))
+        (menu (create-gui-menu-bar (window-content win) :class "w3-red"))
+        (tmp (create-gui-menu-icon menu :image-url "http://127.0.0.1:4242/img/M-Wrike.png" :class "w3-white"))
+        (file (create-gui-menu-drop-down menu :content "file"))
+        (tmp (create-gui-menu-item file :content "save"))
+        (tmp (create-gui-menu-item file :content "save as" :on-click (save-file new-root)))
+        (view (create-gui-menu-drop-down menu :content "view"))
+        (tmp (create-gui-menu-item view :content "view XML" :on-click (view-xml new-root) ))
+        (tmp (create-gui-menu-item view :content "view the output" :on-click (view-output new-root)))
+        (builder-body (create-div (window-content win)))
+         )
+    (freeform-xml-load new-root builder-body)))
+
+
 ;pretty sure this isn't necessary but got added in early in the proceess TODO get rid
 (defun clear-allowed-list ()
   (setf *allowed-list* '()))
@@ -328,7 +350,7 @@
         (new-namespace namespace)
         (child-div (create-div parent-element :class "bg-secondary text-white"))
         (child-content (create-div child-div :content (concatenate 'string "add child element to " nodename )))
-        (select (create-text-area child-div))
+        (select (create-select child-div))
         (child-submit-button (create-button child-div :content "add child"))
         )
  (loop for x in newlist
@@ -387,6 +409,16 @@
     (loop for x in (xmls:node-children *loaded*)
           do (printer x parent-element parent-node namespace)))))
 
+(defun freeform-xml-load (node div)
+  (multiple-value-bind (root-name root-div new-root namespace)(freeform-root-element div node)
+    (setf (xmls:node-name node) (xmls:node-name *loaded*))
+    (multiple-value-bind (child-name parent-element parent-node namespace)(freeform-first-child (xmls:node-name *loaded*) root-div node namespace)
+
+    ;now we have set up the root node, we need to recurse through all children, and call form-generate each call to form generate will need
+    ;to be passed the appropriate variables
+    (loop for x in (xmls:node-children *loaded*)
+          do (freeform-printer x parent-element parent-node namespace)))))
+
 ;same function as above, this is the recursive part - used to create all the parts below the root element
 (defun printer (node parent-div parent-node namespace)
       (if (xmls:node-p node)
@@ -444,7 +476,7 @@
          (tmp (create-gui-menu-item Run :content "structured create (schema loaded)" :on-click 'builder))
          (tmp (create-gui-menu-item Run :content "edit XML (with schema)" :on-click 'editor))
          (tmp (create-gui-menu-item Run :content "freeform create (no schema)" :on-click 'creator))
-         (tmp (create-gui-menu-item Run :content "edit XML (no schema)" :on-click 'freeform-edit))
+         (tmp (create-gui-menu-item Run :content "edit XML (no schema)" :on-click 'freeform-editor))
          (help (create-gui-menu-drop-down menu :content "help"))
          (tmp (create-a help :content "schema builder" :link "https://www.freeformatter.com/xsd-generator.html"))
          (tmp (create-gui-menu-item help :content "view the documentation")))))
