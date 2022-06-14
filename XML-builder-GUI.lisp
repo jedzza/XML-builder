@@ -70,7 +70,8 @@
                     )
                     (destroy tmp)
                     (setf tmp (create-div (window-content output-view) :content
-                                          (format nil "<iframe srcdoc=\"~a\" height='800' width='800'></iframe>" display)))))))))
+                                          (format nil "<iframe srcdoc=\"~a\" height='800' width='800'></iframe>" display)))
+                      ))))))
 
 ;takes a pathname and returns file contents as a string
 (defun read-file (infile)
@@ -133,7 +134,7 @@
         (tmp (create-gui-menu-item file :content "save"))
         (tmp (create-gui-menu-item file :content "save as" :on-click (save-file new-root)))
         (view (create-gui-menu-drop-down menu :content "view"))
-        (tmp (create-gui-menu-item view :content "view XML" :on-click (view-xml new-root)))
+        (tmp (create-gui-menu-item view :content "view XML" :on-click (view-xml new-root output-view)))
         (tmp (create-gui-menu-item view :content "view the output" :on-click (view-output new-root)))
         (builder-body (create-div (window-content output-view)))
         )
