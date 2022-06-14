@@ -76,7 +76,14 @@
                         </p></dd>
                         </xsl:for-each>
                         <xsl:for-each select="email">
-                        <dd><p><xsl:value-of select="."/></p></dd><!--TODO add href here for mailto functionality-->
+                        <dd><p>
+                          <a>
+                            <xsl:attribute name="href">
+                              mailto:<xsl:value-of select="."/>
+                            </xsl:attribute>
+                          <xsl:value-of select="."/>
+                          </a>
+                        </p></dd><!--TODO add href here for mailto functionality-->
                         </xsl:for-each>
                         <xsl:for-each select="image">
                           <dd><p>
@@ -103,15 +110,32 @@
                         <xsl:for-each select="list">
                           <ol><dd>
                             <xsl:for-each select="paragraph">
-                              <li><p>
-                                <xsl:value-of select="."/>
-                              </p></li>
-                            </xsl:for-each><!--end list paragraph-->
-                            <xsl:for-each select="email">
-                              <li><p>
-                                <xsl:value-of select="."/><!--TODO add href-->
-                                </p></li>
-                              </xsl:for-each><!--end list email-->
+                          <li><p>
+                          <xsl:for-each select="./*">
+                            <xsl:if test="(local-name(.) = 'text')">
+                              <xsl:value-of select="."/>
+                            </xsl:if>
+                            <xsl:if test="(local-name(.) = 'link')">
+                              <a>
+                                <xsl:attribute name="href">
+                                  <xsl:value-of select="./link_address"/>
+                                </xsl:attribute>
+                              <xsl:value-of select="./link_text"/>
+                              </a>
+                            </xsl:if>
+                            </xsl:for-each>
+                        </p></li>
+                        </xsl:for-each><!--end list paragraph-->
+                               <xsl:for-each select="email">
+                        <li><p>
+                          <a>
+                            <xsl:attribute name="href">
+                              mailto:<xsl:value-of select="."/>
+                            </xsl:attribute>
+                          <xsl:value-of select="."/>
+                          </a>
+                        </p></li>
+                        </xsl:for-each><!--end list email-->
                               <xsl:for-each select="link">
                                 <li><p>
                                  <a>
@@ -158,10 +182,31 @@
                         <xsl:for-each select="content">
                         <dt><xsl:value-of select="title"/></dt>
                         <xsl:for-each select="paragraph">
-                        <dd><p><xsl:value-of select="."/></p></dd>
+                          <dd><p>
+                          <xsl:for-each select="./*">
+                            <xsl:if test="(local-name(.) = 'text')">
+                              <xsl:value-of select="."/>
+                            </xsl:if>
+                            <xsl:if test="(local-name(.) = 'link')">
+                              <a>
+                                <xsl:attribute name="href">
+                                  <xsl:value-of select="./link_address"/>
+                                </xsl:attribute>
+                              <xsl:value-of select="./link_text"/>
+                              </a>
+                            </xsl:if>
+                            </xsl:for-each>
+                        </p></dd>
                         </xsl:for-each>
-                        <xsl:for-each select="email">
-                        <dd><p><xsl:value-of select="."/></p></dd><!--TODO add href here for mailto functionality-->
+                         <xsl:for-each select="email">
+                        <dd><p>
+                          <a>
+                            <xsl:attribute name="href">
+                              mailto:<xsl:value-of select="."/>
+                            </xsl:attribute>
+                          <xsl:value-of select="."/>
+                          </a>
+                        </p></dd>
                         </xsl:for-each>
                         <xsl:for-each select="image">
                           <dd><p>
@@ -188,15 +233,32 @@
                         <xsl:for-each select="list">
                           <ol><dd>
                             <xsl:for-each select="paragraph">
-                              <li><p>
-                                <xsl:value-of select="."/>
-                              </p></li>
-                            </xsl:for-each><!--end list paragraph-->
-                            <xsl:for-each select="email">
-                              <li><p>
-                                <xsl:value-of select="."/><!--TODO add href-->
-                                </p></li>
-                              </xsl:for-each><!--end list email-->
+                          <li><p>
+                          <xsl:for-each select="./*">
+                            <xsl:if test="(local-name(.) = 'text')">
+                              <xsl:value-of select="."/>
+                            </xsl:if>
+                            <xsl:if test="(local-name(.) = 'link')">
+                              <a>
+                                <xsl:attribute name="href">
+                                  <xsl:value-of select="./link_address"/>
+                                </xsl:attribute>
+                              <xsl:value-of select="./link_text"/>
+                              </a>
+                            </xsl:if>
+                            </xsl:for-each>
+                        </p></li>
+                        </xsl:for-each><!--end list paragraph-->
+                               <xsl:for-each select="email">
+                        <li><p>
+                          <a>
+                            <xsl:attribute name="href">
+                              mailto:<xsl:value-of select="."/>
+                            </xsl:attribute>
+                          <xsl:value-of select="."/>
+                          </a>
+                        </p></li>
+                        </xsl:for-each><!--end list email-->
                               <xsl:for-each select="link">
                                 <li><p>
                                  <a>
