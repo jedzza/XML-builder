@@ -59,7 +59,21 @@
                         <xsl:for-each select="content">
                         <dt><xsl:value-of select="title"/></dt>
                         <xsl:for-each select="paragraph">
-                        <dd><p><xsl:value-of select="."/></p></dd>
+                          <dd><p>
+                          <xsl:for-each select="./*">
+                            <xsl:if test="(local-name(.) = 'text')">
+                              <xsl:value-of select="."/>
+                            </xsl:if>
+                            <xsl:if test="(local-name(.) = 'link')">
+                              <a>
+                                <xsl:attribute name="href">
+                                  <xsl:value-of select="./link_address"/>
+                                </xsl:attribute>
+                              <xsl:value-of select="./link_text"/>
+                              </a>
+                            </xsl:if>
+                            </xsl:for-each>
+                        </p></dd>
                         </xsl:for-each>
                         <xsl:for-each select="email">
                         <dd><p><xsl:value-of select="."/></p></dd><!--TODO add href here for mailto functionality-->

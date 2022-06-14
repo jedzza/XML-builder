@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-                                         <?xml-stylesheet type="text/xsl" href="MAP_stylesheet.xsl"?><asset_passport><title>ghgf</title><warranty><warranty_section/></warranty></asset_passport>
+                                         <?xml-stylesheet type="text/xsl" href="MAP_stylesheet.xsl"?><asset_passport><warranty><warranty_section><content><paragraph><link><link_text>sdasdsa</link_text><link_address>https://www.google.co.uk/</link_address></link><text> this paragraph has some </text><link><link_text> embedded links</link_text><link_address>https://www.google.co.uk/</link_address></link></paragraph></content></warranty_section></warranty></asset_passport>

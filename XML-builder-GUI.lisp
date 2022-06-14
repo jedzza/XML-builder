@@ -46,7 +46,7 @@
 (defun view-output (node)
   (lambda (obj)
   (let* (
-         (stylesheet (xuriella:parse-stylesheet #p"/Users/jedic/common-lisp/XML-builder-GUI/www/MAP_stylesheet.xsl"))
+         (stylesheet (xuriella:parse-stylesheet #p"/Users/jedic/common-lisp/XML-builder/XML-builder/www/MAP_stylesheet.xsl"))
          (display (xuriella:apply-stylesheet stylesheet (xmls:toxml node) :output nil))
          (display (ppcre:regex-replace-all "\"" display "'"))
          (display (ppcre:regex-replace-all "&" display "&amp;amp;"))
@@ -63,7 +63,7 @@
     (set-on-click button
                   (lambda (obj)
                     (let* (
-                    (stylesheet (xuriella:parse-stylesheet #p"/Users/jedic/common-lisp/XML-builder-GUI/www/MAP_stylesheet.xsl"))
+                    (stylesheet (xuriella:parse-stylesheet #p"/Users/jedic/common-lisp/XML-builder/XML-builder/www/MAP_stylesheet.xsl"))
                     (display (xuriella:apply-stylesheet stylesheet (xmls:toxml node) :output nil))
                     (display (ppcre:regex-replace-all "\"" display "'"))
                     (display (ppcre:regex-replace-all "&" display "&amp;amp;"))
@@ -134,7 +134,7 @@
         (tmp (create-gui-menu-item file :content "save"))
         (tmp (create-gui-menu-item file :content "save as" :on-click (save-file new-root)))
         (view (create-gui-menu-drop-down menu :content "view"))
-        (tmp (create-gui-menu-item view :content "view XML" :on-click (view-xml new-root output-view)))
+        (tmp (create-gui-menu-item view :content "view XML" :on-click (view-xml new-root)))
         (tmp (create-gui-menu-item view :content "view the output" :on-click (view-output new-root)))
         (builder-body (create-div (window-content output-view)))
         )
@@ -421,20 +421,22 @@
 
 ;same function as above, this is the recursive part - used to create all the parts below the root element
 (defun printer (node parent-div parent-node namespace)
-      (if (xmls:node-p node)
        (let*(
         (new-namespace namespace)
         )
     (setf new-namespace (append namespace (list (xmls:node-name node))))
     (clear-allowed-list)
     (next-element new-namespace *schema*)
-        (loop for x in (xmls:node-children node)
+        (if (equalp (xmls:node-children node) nil)
+            (form-generate (xmls:node-name node) parent-div parent-node new-namespace)
+            (loop for x in (xmls:node-children node)
             do (cond ((xmls:node-p x)
-                      (multiple-value-bind (nodename parent-element new-parent-node namespace)
-                          (form-generate (xmls:node-name node) parent-div parent-node new-namespace)
-                      (printer x parent-element new-parent-node namespace)))
+                      (multiple-value-bind
+                            (nodename parent-element new-parent-node namespace)
+                            (form-generate (xmls:node-name node) parent-div parent-node new-namespace)
+                            (printer x parent-element new-parent-node namespace)))
                      (t
-                      (setf (xmls:node-children parent-node) (remove x (xmls:node-children parent-node)))
+                     ; (setf (xmls:node-children parent-node) (remove x (xmls:node-children parent-node)))
                       (form-generate (xmls:node-name node) parent-div parent-node new-namespace x)))))))
 
 ;same function as above, but for loading XML without a schema
@@ -444,14 +446,17 @@
              (new-namespace namespace)
              )
         (setf new-namespace (append namespace (list (xmls:node-name node))))
-        (loop for x in (xmls:node-children node)
+        (if (equalp (xmls:node-children node) nil)
+            (freeform-form-generate (xmls:node-name node) parent-div parent-node new-namespace)
+            (loop for x in (xmls:node-children node)
               do (cond ((xmls:node-p x)
-                        (multiple-value-bind (nodename parent-element new-parent-node namespace)
+                        (multiple-value-bind
+                            (nodename parent-element new-parent-node namespace)
                             (freeform-form-generate (xmls:node-name node) parent-div parent-node new-namespace)
-                          (freeform-printer x parent-element new-parent-node namespace)))
+                            (freeform-printer x parent-element new-parent-node namespace)))
                        (t
                         (setf (xmls:node-children parent-node) (remove x (xmls:node-children parent-node)))
-                        (freeform-form-generate (xmls:node-name node) parent-div parent-node new-namespace x)))))))
+                        (freeform-form-generate (xmls:node-name node) parent-div parent-node new-namespace x))))))))
 
 
 ;sets up the root menu TODO allow for loading alternative stylesheets

@@ -7,7 +7,6 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element name="image_address"/>
-            <xs:element name="alt_text"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -51,11 +50,35 @@
                <xs:element name="content">
                  <xs:complexType>
                    <xs:element name="title" type="string"/>
-                   <xs:element name="paragraph" type="string"/>
+                   <xs:element name="paragraph">
+                     <complexType>
+                       <xs:element name="text" type="string"/>
+                      <xs:element name="link">
+                         <xs:complexType>
+                           <xs:sequence>
+                             <xs:element name="link_address"/>
+                             <xs:element name="link_text"/>
+                           </xs:sequence>
+                       </xs:complexType>
+                   </xs:element>
+                       </complexType>
+                   </xs:element>
                    <xs:element name="email" type="string"/>
                    <xs:element name="list">
                      <xs:complexType>
-                       <xs:element name="paragraph" type="string"/>
+                       <xs:element name="paragraph">
+                     <complexType>
+                       <xs:element name="text" type="string"/>
+                       <xs:element name="link">
+                         <xs:complexType>
+                           <xs:sequence>
+                             <xs:element name="link_address"/>
+                             <xs:element name="link_text"/>
+                           </xs:sequence>
+                       </xs:complexType>
+                   </xs:element>
+                       </complexType>
+                   </xs:element>
                        <xs:element name="email" type="string"/>
                        <xs:element name="link">
                          <xs:complexType>
@@ -101,17 +124,41 @@
                <xs:element name="content">
                  <xs:complexType>
                    <xs:element name="title" type="string"/>
-                   <xs:element name="paragraph" type="string"/>
+                   <xs:element name="paragraph">
+                     <complexType>
+                       <xs:element name="text" type="string"/>
+                       <xs:element name="link">
+                         <xs:complexType>
+                           <xs:sequence>
+                             <xs:element name="link_address"/>
+                             <xs:element name="link_text"/>
+                           </xs:sequence>
+                       </xs:complexType>
+                   </xs:element>
+                       </complexType>
+                   </xs:element>
                    <xs:element name="email" type="string"/>
                    <xs:element name="list">
                      <xs:complexType>
-                       <xs:element name="paragraph" type="string"/>
+                       <xs:element name="paragraph">
+                     <complexType>
+                       <xs:element name="text" type="string"/>
+                       <xs:element name="link">
+                         <xs:complexType>
+                           <xs:sequence>
+                             <xs:element name="link_address"/>
+                             <xs:element name="link_text"/>
+                           </xs:sequence>
+                       </xs:complexType>
+                   </xs:element>
+                       </complexType>
+                   </xs:element>
                        <xs:element name="email" type="string"/>
                        <xs:element name="link">
                          <xs:complexType>
                            <xs:sequence>
                              <xs:element name="link_address"/>
-                             <xs:element name="text"/>
+                             <xs:element name="link_text"/>
                            </xs:sequence>
                          </xs:complexType>
                        </xs:element>
