@@ -10,7 +10,7 @@
 
 ;CLOG uses asdf to configure the directory for static file serving - I couldn't get it working reliably
 ;so I have created an acceptor to serve images etc that looks in the "./www" directory to make it portable
-;TODO work out why asdf isn't working to reduce the need for an extra port
+;TODO work out why asdf isn't working to reduce the need for an extra port - also use clack for this
 (defvar *acceptor* (make-instance 'hunchentoot:easy-acceptor
         :port 4242
         :document-root (truename "./www/")))
@@ -46,7 +46,7 @@
 (defun view-output (node)
   (lambda (obj)
   (let* (
-         (stylesheet (xuriella:parse-stylesheet #p"/Users/jedic/common-lisp/XML-builder/XML-builder/www/MAP_stylesheet.xsl"))
+         (stylesheet (xuriella:parse-stylesheet (merge-pathnames "www/MAP_stylesheet.xsl" *default-pathname-defaults*)))
          (display (xuriella:apply-stylesheet stylesheet (xmls:toxml node) :output nil))
          (display (ppcre:regex-replace-all "\"" display "'"))
          (display (ppcre:regex-replace-all "&" display "&amp;amp;"))
