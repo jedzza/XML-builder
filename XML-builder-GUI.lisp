@@ -63,14 +63,14 @@
     (set-on-click button
                   (lambda (obj)
                     (let* (
-                    (stylesheet (xuriella:parse-stylesheet #p"/Users/jedic/common-lisp/XML-builder/XML-builder/www/MAP_stylesheet.xsl"))
-                    (display (xuriella:apply-stylesheet stylesheet (xmls:toxml node) :output nil))
-                    (display (ppcre:regex-replace-all "\"" display "'"))
-                    (display (ppcre:regex-replace-all "&" display "&amp;amp;"))
-                    )
-                    (destroy tmp)
-                    (setf tmp (create-div (window-content output-view) :content
-                                          (format nil "<iframe srcdoc=\"~a\" height='800' width='800'></iframe>" display)))
+                           (stylesheet (xuriella:parse-stylesheet (merge-pathnames "www/MAP_stylesheet.xsl" *default-pathname-defaults*)))
+                           (display (xuriella:apply-stylesheet stylesheet (xmls:toxml node) :output nil))
+                           (display (ppcre:regex-replace-all "\"" display "'"))
+                           (display (ppcre:regex-replace-all "&" display "&amp;amp;"))
+                           )
+                      (destroy tmp)
+                      (setf tmp (create-div (window-content output-view) :content
+                                            (format nil "<iframe srcdoc=\"~a\" height='800' width='800'></iframe>" display)))
                       ))))))
 
 ;takes a pathname and returns file contents as a string
